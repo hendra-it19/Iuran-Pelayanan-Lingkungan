@@ -1,8 +1,8 @@
-import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
-import type { BreadcrumbItem } from '@/types';
 import { usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
+import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
+import type { BreadcrumbItem } from '@/types';
 
 export default function AppLayout({
     breadcrumbs = [],
@@ -17,9 +17,11 @@ export default function AppLayout({
         if (flash?.success) {
             toast.success(flash.success);
         }
+
         if (flash?.error) {
             toast.error(flash.error);
         }
+
         if (flash?.message) {
             toast(flash.message);
         }

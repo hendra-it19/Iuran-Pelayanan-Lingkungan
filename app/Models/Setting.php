@@ -12,5 +12,14 @@ class Setting extends Model
         'company_logo',
         'company_leader',
         'primary_color',
+        'company_address_pusat',
+        'company_address_lokasi',
+        'company_phone',
+        'company_wa',
+        'company_city',
+        'theme_color',
+        'bank_name',
+        'bank_account',
+        'bank_holder',
     ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -35,6 +36,8 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $setting = Setting::first();
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
@@ -47,6 +50,11 @@ class HandleInertiaRequests extends Middleware
                 'error' => $request->session()->get('error'),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'appSettings' => [
+                'company_name' => $setting?->company_name ?? config('app.name'),
+                'company_logo' => $setting?->company_logo ? asset('file-upload/'.$setting->company_logo) : asset('logo-default.png'),
+                'theme_color' => $setting?->theme_color ?? 'zinc',
+            ],
         ];
     }
 }
