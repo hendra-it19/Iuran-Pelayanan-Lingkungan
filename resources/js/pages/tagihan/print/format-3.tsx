@@ -173,14 +173,13 @@ export default function Format3({ tagihan, settings, isBlank, autoPrint = true }
                                 pelaksanaan pekerjaan pemeliharaan untuk kepentingan bersama
                             </p>
                         </div>
-                        <div className="flex flex-col items-end justify-end text-sm pr-8">
-                            <div className="text-left w-64">
+                        <div className="flex flex-col items-end justify-end text-sm pr-4">
+                            <div className="text-right">
                                 <p className="font-bold">{settings?.company_city || 'Bekasi'}, {!isBlank ? formatDateFull() : '.......................'}</p>
                                 <p className="font-black text-xs mt-0">COMPLEX SERVICE</p>
                                 
                                 <div className="mt-12">
                                     <p className="font-bold underline leading-none">{!isBlank ? auth.user?.name : '.......................'}</p>
-                                    <p className="font-bold text-xs mt-1">Bendahara</p>
                                 </div>
                             </div>
                         </div>
