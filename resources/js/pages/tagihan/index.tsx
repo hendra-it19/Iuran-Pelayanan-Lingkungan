@@ -106,9 +106,9 @@ export default function TagihanIndex({ tagihans, filters }: IndexProps) {
         });
     };
 
-    const handleBulkPrint = (format: 'format-1' | 'format-2') => {
+    const handleBulkPrint = () => {
         const idsString = selectedIds.join(',');
-        window.open(`${tagihanRoutes.bulkPrint().url}?ids=${idsString}&format=${format}`, '_blank');
+        window.open(`${tagihanRoutes.bulkPrint().url}?ids=${idsString}&format=format-3`, '_blank');
     };
 
     const applyFilters = (b: string, t: string, s: string) => {
@@ -204,19 +204,9 @@ export default function TagihanIndex({ tagihans, filters }: IndexProps) {
                     </div>
 
                     <div className="flex gap-2">
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="outline">Cetak Kwitansi Kosong</Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                <DropdownMenuItem onClick={() => window.open(tagihanRoutes.printBlank('format-1').url, '_blank')}>
-                                    Model 1 (Garis Standard)
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => window.open(tagihanRoutes.printBlank('format-2').url, '_blank')}>
-                                    Model 2 (Tabel Rincian)
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                        <Button variant="outline" onClick={() => window.open(tagihanRoutes.printBlank('format-3').url, '_blank')}>
+                            Cetak Kwitansi Kosong
+                        </Button>
 
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
@@ -298,19 +288,9 @@ export default function TagihanIndex({ tagihans, filters }: IndexProps) {
                                                     <span className="text-sm text-green-600 font-semibold uppercase mr-2">Lunas</span>
                                                 )}
                                                 
-                                                <DropdownMenu>
-                                                    <DropdownMenuTrigger asChild>
-                                                        <Button variant="secondary" size="sm">Cetak</Button>
-                                                    </DropdownMenuTrigger>
-                                                    <DropdownMenuContent align="end">
-                                                        <DropdownMenuItem onClick={() => window.open(tagihanRoutes.print({ tagihan: item.id, format: 'format-1' }).url, '_blank')}>
-                                                            Model 1 (Garis)
-                                                        </DropdownMenuItem>
-                                                        <DropdownMenuItem onClick={() => window.open(tagihanRoutes.print({ tagihan: item.id, format: 'format-2' }).url, '_blank')}>
-                                                            Model 2 (Tabel)
-                                                        </DropdownMenuItem>
-                                                    </DropdownMenuContent>
-                                                </DropdownMenu>
+                                                <Button variant="secondary" size="sm" onClick={() => window.open(tagihanRoutes.print({ tagihan: item.id, format: 'format-3' }).url, '_blank')}>
+                                                    Cetak
+                                                </Button>
                                             </div>
                                         </TableCell>
                                     </TableRow>
@@ -366,25 +346,14 @@ export default function TagihanIndex({ tagihans, filters }: IndexProps) {
                             Bayar Sekaligus
                         </Button>
 
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button 
-                                    variant="outline" 
-                                    size="sm" 
-                                    className="rounded-full h-8 px-4 bg-transparent border-zinc-700 hover:bg-zinc-800 text-zinc-50"
-                                >
-                                    Cetak Sekaligus
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="bg-zinc-900 border-zinc-800 text-zinc-50">
-                                <DropdownMenuItem onClick={() => handleBulkPrint('format-1')} className="hover:bg-zinc-800 focus:bg-zinc-800 focus:text-zinc-50">
-                                    Model 1 (Garis)
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => handleBulkPrint('format-2')} className="hover:bg-zinc-800 focus:bg-zinc-800 focus:text-zinc-50">
-                                    Model 2 (Tabel)
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                        <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="rounded-full h-8 px-4 bg-transparent border-zinc-700 hover:bg-zinc-800 text-zinc-50"
+                            onClick={handleBulkPrint}
+                        >
+                            Cetak Sekaligus
+                        </Button>
 
                         <Button 
                             variant="ghost" 

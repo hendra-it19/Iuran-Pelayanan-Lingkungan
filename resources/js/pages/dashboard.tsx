@@ -1,6 +1,8 @@
 import { Head, router } from '@inertiajs/react';
+import { Printer } from 'lucide-react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -88,8 +90,12 @@ export default function Dashboard({ stats, chartData, perBlok, recentPayments }:
                         </p>
                     </div>
 
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium hidden sm:inline">Filter:</span>
+                    <div className="flex items-center gap-2 print:hidden">
+                        <Button variant="outline" size="sm" onClick={() => window.print()}>
+                            <Printer className="size-4 mr-2" />
+                            Cetak Ringkasan (PDF)
+                        </Button>
+                        <span className="text-sm font-medium hidden sm:inline ml-2">Filter:</span>
                         <Select value={stats.period} onValueChange={handlePeriodChange}>
                             <SelectTrigger className="w-full sm:w-[180px]">
                                 <SelectValue placeholder="Pilih Periode" />
@@ -103,6 +109,42 @@ export default function Dashboard({ stats, chartData, perBlok, recentPayments }:
                         </Select>
                     </div>
                 </div>
+
+                <style>{`
+                    @media print {
+                        @page { size: A4 landscape; margin: 1cm; }
+                        body { background: white !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; font-size: 10px !important; }
+                        header, footer, nav, aside, .print\\:hidden { display: none !important; }
+                        .flex, .grid { gap: 0.5rem !important; }
+                        .Card { border: 1px solid #eee !important; box-shadow: none !important; break-inside: avoid; }
+                        .recharts-responsive-container { width: 100% !important; height: 250px !important; }
+                        .flex-col { gap: 1rem !important; }
+                        main { padding: 0 !important; margin: 0 !important; width: 100% !important; }
+                        
+                        /* Force 4 columns for cards like desktop */
+                        .md\\:grid-cols-2, .lg\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+                        
+                        /* Fix chart lines visibility in print */
+                        svg { width: 100% !important; }
+                        path.recharts-line-path { 
+                            stroke-width: 5px !important; 
+                            stroke-opacity: 1 !important; 
+                            visibility: visible !important; 
+                            display: block !important;
+                        }
+                        .recharts-cartesian-grid line { stroke: #e5e7eb !important; stroke-opacity: 1 !important; }
+                        
+                        /* Fix progress bar */
+                        .bg-muted { background-color: #f3f4f6 !important; }
+                        .bg-green-500 { background-color: #22c55e !important; }
+                        
+                        /* Smaller text for print */
+                        h2 { font-size: 14px !important; }
+                        .text-2xl { font-size: 16px !important; }
+                        .text-sm { font-size: 10px !important; }
+                        .text-xs { font-size: 8px !important; }
+                    }
+                `}</style>
 
                 {/* Stats Cards */}
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

@@ -2,11 +2,12 @@ import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
 import Format1 from './format-1';
 import Format2 from './format-2';
+import Format3 from './format-3';
 
 interface BulkPrintProps {
     tagihans: any[];
     settings: any;
-    format: 'format-1' | 'format-2';
+    format: 'format-1' | 'format-2' | 'format-3';
 }
 
 export default function BulkPrint({ tagihans, settings, format }: BulkPrintProps) {
@@ -41,8 +42,10 @@ export default function BulkPrint({ tagihans, settings, format }: BulkPrintProps
                         `}</style>
                         {format === 'format-1' ? (
                             <Format1 tagihan={tagihan} settings={settings} isBlank={false} autoPrint={false} />
-                        ) : (
+                        ) : format === 'format-2' ? (
                             <Format2 tagihan={tagihan} settings={settings} isBlank={false} autoPrint={false} />
+                        ) : (
+                            <Format3 tagihan={tagihan} settings={settings} isBlank={false} autoPrint={false} />
                         )}
                     </div>
                 ))}

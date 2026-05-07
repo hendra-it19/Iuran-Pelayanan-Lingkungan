@@ -121,7 +121,7 @@ class TagihanController extends Controller
     public function bulkPrint(Request $request)
     {
         $ids = explode(',', $request->query('ids', ''));
-        $format = $request->query('format', 'format-1');
+        $format = $request->query('format', 'format-3');
 
         $tagihans = Tagihan::with('warga')->whereIn('id', $ids)->get();
         $settings = Setting::first();
@@ -139,7 +139,13 @@ class TagihanController extends Controller
         // Get generic config from settings
         $settings = Setting::first();
 
-        $viewPath = 'tagihan/print/'.($format === 'format-1' ? 'format-1' : 'format-2');
+        $viewPath = 'tagihan/print/format-3';
+
+        if ($format === 'format-1') {
+            $viewPath = 'tagihan/print/format-1';
+        } elseif ($format === 'format-2') {
+            $viewPath = 'tagihan/print/format-2';
+        }
 
         return Inertia::render($viewPath, [
             'tagihan' => $tagihan,
@@ -151,7 +157,13 @@ class TagihanController extends Controller
     public function printBlank(string $format)
     {
         $settings = Setting::first();
-        $viewPath = 'tagihan/print/'.($format === 'format-1' ? 'format-1' : 'format-2');
+        $viewPath = 'tagihan/print/format-3';
+
+        if ($format === 'format-1') {
+            $viewPath = 'tagihan/print/format-1';
+        } elseif ($format === 'format-2') {
+            $viewPath = 'tagihan/print/format-2';
+        }
 
         return Inertia::render($viewPath, [
             'tagihan' => null,
