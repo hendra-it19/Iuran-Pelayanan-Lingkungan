@@ -175,7 +175,7 @@ export default function Format1({ tagihan, settings, isBlank, autoPrint = true }
                         </div>
 
                         {/* Footer: disclaimer + total + city/date */}
-                        <div className="mt-auto flex justify-between items-end" style={{ paddingBottom: '4px' }}>
+                        <div className="mt-auto flex justify-between items-end pr-10" style={{ paddingBottom: '4px' }}>
                             {/* Left: disclaimer + total box */}
                             <div style={{ maxWidth: '260px' }}>
                                 <div style={{ fontSize: '8px', lineHeight: '1.3', color: '#555', marginBottom: '6px' }}>
@@ -200,13 +200,13 @@ export default function Format1({ tagihan, settings, isBlank, autoPrint = true }
                             </div>
 
                             {/* Right: city + date */}
-                            <div style={{ fontSize: '11px', textAlign: 'center' }}>
-                                <span style={{ textTransform: 'uppercase', fontWeight: 600 }}>{settings?.company_city || 'BEKASI'}</span>,{' '}
+                            <div className="flex flex-col items-center" style={{ fontSize: '11px', textAlign: 'center' }}>
+                                <span style={{ textTransform: 'uppercase', fontWeight: 600 }}>{settings?.company_city || 'BEKASI'}</span>
                                 <span
-                                    className="border-b border-dotted border-black inline-block text-center"
-                                    style={{ width: '100px', fontWeight: 'bold' }}
+                                    className="border-b border-dotted border-black inline-block text-center mt-1"
+                                    style={{ width: '120px', fontWeight: 'bold' }}
                                 >
-                                    {!isBlank ? formatDate(tagihan?.tanggal_bayar) : ''}
+                                    {!isBlank ? formatDate(tagihan?.tanggal_bayar) : '.......................'}
                                 </span>
                             </div>
                         </div>

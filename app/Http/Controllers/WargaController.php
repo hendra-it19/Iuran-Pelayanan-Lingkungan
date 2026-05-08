@@ -26,7 +26,11 @@ class WargaController extends Controller
             $query->where('blok', $blok);
         }
 
-        $wargas = $query->latest()->paginate(15)->withQueryString();
+        $wargas = $query->orderBy('blok')
+            ->orderByRaw('CAST(no_rumah AS UNSIGNED) ASC')
+            ->orderBy('no_rumah')
+            ->paginate(15)
+            ->withQueryString();
 
         return Inertia::render('warga/index', [
             'wargas' => $wargas,

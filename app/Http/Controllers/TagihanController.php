@@ -25,7 +25,13 @@ class TagihanController extends Controller
             $query->where('status', $status);
         }
 
-        $tagihans = $query->latest()->paginate(15)->withQueryString();
+        $tagihans = $query->join('wargas', 'tagihans.warga_id', '=', 'wargas.id')
+            ->orderBy('wargas.blok')
+            ->orderByRaw('CAST(wargas.no_rumah AS UNSIGNED) ASC')
+            ->orderBy('wargas.no_rumah')
+            ->select('tagihans.*')
+            ->paginate(15)
+            ->withQueryString();
 
         return Inertia::render('tagihan/index', [
             'tagihans' => $tagihans,
@@ -196,7 +202,12 @@ class TagihanController extends Controller
             $query->where('status', $status);
         }
 
-        $data = $query->latest()->get();
+        $data = $query->join('wargas', 'tagihans.warga_id', '=', 'wargas.id')
+            ->orderBy('wargas.blok')
+            ->orderByRaw('CAST(wargas.no_rumah AS UNSIGNED) ASC')
+            ->orderBy('wargas.no_rumah')
+            ->select('tagihans.*')
+            ->get();
         $settings = Setting::first();
 
         $bulanNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];

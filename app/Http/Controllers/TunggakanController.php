@@ -40,7 +40,9 @@ class TunggakanController extends Controller
             $query->where('blok', $blok);
         }
 
-        $tunggakans = $query->orderByDesc('total_tunggakan')
+        $tunggakans = $query->orderBy('blok')
+            ->orderByRaw('CAST(no_rumah AS UNSIGNED) ASC')
+            ->orderBy('no_rumah')
             ->paginate(15)
             ->withQueryString();
 
@@ -107,7 +109,10 @@ class TunggakanController extends Controller
             $query->where('blok', $blok);
         }
 
-        $data = $query->orderByDesc('total_tunggakan')->get();
+        $data = $query->orderBy('blok')
+            ->orderByRaw('CAST(no_rumah AS UNSIGNED) ASC')
+            ->orderBy('no_rumah')
+            ->get();
 
         $totalNominal = $data->sum('total_tunggakan');
         $settings = Setting::first();

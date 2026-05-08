@@ -173,8 +173,8 @@ export default function Format3({ tagihan, settings, isBlank, autoPrint = true }
                                 pelaksanaan pekerjaan pemeliharaan untuk kepentingan bersama
                             </p>
                         </div>
-                        <div className="flex flex-col items-end justify-end text-sm pr-4">
-                            <div className="text-right">
+                        <div className="flex flex-col items-center justify-end text-sm pr-12">
+                            <div className="text-center">
                                 <p className="font-bold">{settings?.company_city || 'Bekasi'}, {!isBlank ? formatDateFull() : '.......................'}</p>
                                 <p className="font-black text-xs mt-0">COMPLEX SERVICE</p>
                                 

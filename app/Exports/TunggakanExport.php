@@ -46,7 +46,10 @@ class TunggakanExport implements FromCollection, ShouldAutoSize, WithHeadings, W
             $query->where('blok', $this->blok);
         }
 
-        return $query->orderByDesc('total_tunggakan')->get();
+        return $query->orderBy('blok')
+            ->orderByRaw('CAST(no_rumah AS UNSIGNED) ASC')
+            ->orderBy('no_rumah')
+            ->get();
     }
 
     public function headings(): array

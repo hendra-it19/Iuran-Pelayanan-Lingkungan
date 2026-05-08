@@ -32,7 +32,12 @@ class TagihanExport implements FromCollection, ShouldAutoSize, WithHeadings, Wit
             $query->where('status', $this->status);
         }
 
-        return $query->latest()->get();
+        return $query->join('wargas', 'tagihans.warga_id', '=', 'wargas.id')
+            ->orderBy('wargas.blok')
+            ->orderByRaw('CAST(wargas.no_rumah AS UNSIGNED) ASC')
+            ->orderBy('wargas.no_rumah')
+            ->select('tagihans.*')
+            ->get();
     }
 
     public function headings(): array

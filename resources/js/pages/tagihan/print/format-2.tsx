@@ -167,7 +167,7 @@ return '';
                 </div>
 
                 {/* Footer Totals */}
-                <div className="flex px-4 mt-auto">
+                <div className="flex px-4 mt-auto pr-8">
                         <div className="flex-1 text-sm font-bold flex flex-col justify-end pb-2">
                         {/* Payment Instructions */}
                         <div className="text-[11px] font-normal normal-case leading-relaxed text-gray-700">
@@ -177,7 +177,7 @@ return '';
                         </div>
                     </div>
                     
-                    <div className="w-[250px] relative text-center text-xs">
+                    <div className="w-[250px] relative flex flex-col items-center justify-end text-center text-xs">
                         {/* Lunas Stamp Mock */}
                         {!isBlank && tagihan?.status === 'Lunas' && (
                             <div className="absolute top-2 left-0 right-0 transform -rotate-12 pointer-events-none opacity-40">
@@ -195,7 +195,7 @@ return '';
                             {settings?.company_name || 'Unit Pengelola'}
                         </div>
                         
-                        <div className="font-bold border-t border-black inline-block px-4">
+                        <div className="font-bold border-t border-black inline-block px-4 min-w-[150px]">
                             {auth.user?.name || 'Pimpinan Unit'}
                         </div>
                     </div>
