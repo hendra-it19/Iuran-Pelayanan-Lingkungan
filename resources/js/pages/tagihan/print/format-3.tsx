@@ -47,6 +47,24 @@ export default function Format3({ tagihan, settings, isBlank, autoPrint = true }
     const Nominal = tagihan?.nominal || 0;
     const { auth, appSettings } = usePage().props as any;
 
+    const formatCompanyName = (name: string) => {
+        return name.split(' ').map((word, wordIndex) => {
+            if (!word) {
+                return null;
+            }
+
+            const firstChar = word.charAt(0);
+            const rest = word.slice(1);
+
+            return (
+                <span key={wordIndex} className="inline-flex items-baseline mr-2 last:mr-0">
+                    <span className="text-[1.5em] font-[1000] leading-none relative" style={{ top: '0.12em', textShadow: '0.7px 0 currentColor, -0.7px 0 currentColor' }}>{firstChar}</span>
+                    <span className="underline decoration-1 underline-offset-[2px] font-black text-[0.95em]" style={{ textShadow: '0.6px 0 currentColor' }}>{rest}</span>
+                </span>
+            );
+        });
+    };
+
     return (
         <>
             <Head title="Print Kwitansi - Format 3" />
@@ -67,7 +85,7 @@ export default function Format3({ tagihan, settings, isBlank, autoPrint = true }
             </div>
 
             <div className="w-[9.5in] h-[5in] bg-white mx-auto mt-16 print:mt-0 relative text-black overflow-hidden box-border p-6 border border-gray-300 print:border-0" style={{ fontFamily: '"Arial", sans-serif' }}>
-                
+
                 {/* Border Outer */}
                 <div className="absolute inset-4 border border-black pointer-events-none"></div>
 
@@ -83,10 +101,12 @@ export default function Format3({ tagihan, settings, isBlank, autoPrint = true }
                                 )}
                             </div>
                             <div className="flex flex-col">
-                                <div className="text-[10px] font-bold text-gray-600 leading-tight">COMPLEX SERVICE</div>
-                                <h1 className="text-xl font-black tracking-tight leading-none text-black">{settings?.company_name || 'KEMANG PRATAMA'}</h1>
+                                <div className="text-[10px] font-black text-gray-800 leading-tight -mb-1" style={{ fontFamily: '"Times New Roman", Times, serif', textShadow: '0.6px 0 currentColor' }}>COMPLEX SERVICE</div>
+                                <h1 className="text-xl leading-none text-black" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
+                                    {formatCompanyName(settings?.company_name || 'KEMANG PRATAMA')}
+                                </h1>
                                 <div className="text-[10px] font-medium text-gray-700 mt-1 leading-tight">
-                                    Kantor : {settings?.company_address_pusat || 'Jl. Kemang Pratama Raya Blok A No.01'}<br/>
+                                    Kantor : {settings?.company_address_pusat || 'Jl. Kemang Pratama Raya Blok A No.01'}<br />
                                     Telp. {settings?.company_phone || '8240-6129'} / WA. {settings?.company_wa || '0813-9970-098'}
                                 </div>
                             </div>
@@ -104,7 +124,7 @@ export default function Format3({ tagihan, settings, isBlank, autoPrint = true }
                     </div>
 
                     <div className="mt-2 text-left px-4">
-                        <h2 className="text-lg font-black tracking-widest">BUKTI PEMBAYARAN</h2>
+                        <h2 className="text-lg font-black tracking-wide" style={{ fontFamily: '"Times New Roman", Times, serif' }}>BUKTI PEMBAYARAN</h2>
                     </div>
 
                     {/* Content Section */}
@@ -167,17 +187,17 @@ export default function Format3({ tagihan, settings, isBlank, autoPrint = true }
                             <p className="font-bold mb-1">Pembayaran dapat dilakukan :</p>
                             <p>1. Transfer via {settings?.bank_name || 'Bank BNI'} No. {settings?.bank_account || '16492971'} a/n {settings?.bank_holder || 'PT. Kemang Pratama'}</p>
                             <p>2. Pembayaran Tunai langsung di Loket Pembayaran</p>
-                            
+
                             <p className="mt-4 font-bold italic leading-tight text-[11px]">
-                                Kedisiplinan membayar iuran sangat membantu kelancaran<br/>
+                                Kedisiplinan membayar iuran sangat membantu kelancaran<br />
                                 pelaksanaan pekerjaan pemeliharaan untuk kepentingan bersama
                             </p>
                         </div>
                         <div className="flex flex-col items-center justify-end text-sm pr-12">
                             <div className="text-center">
                                 <p className="font-bold">{settings?.company_city || 'Bekasi'}, {!isBlank ? formatDateFull() : '.......................'}</p>
-                                <p className="font-black text-xs mt-0">COMPLEX SERVICE</p>
-                                
+                                <p className="font-black text-xs mt-0" style={{ fontFamily: '"Times New Roman", Times, serif', textShadow: '0.6px 0 currentColor' }}>COMPLEX SERVICE</p>
+
                                 <div className="mt-12">
                                     <p className="font-bold underline leading-none">{!isBlank ? auth.user?.name : '.......................'}</p>
                                 </div>
